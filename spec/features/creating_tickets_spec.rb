@@ -8,7 +8,7 @@ feature "Creating tickets" do
     visit '/'
     click_link project.name
     click_link "New Ticket"
-    message = "You need to sign up or sign in before continuing"
+    message = "You need to sign in or sign up before continuing"
     expect(page).to have_content(message)
 
     fill_in "Name",  with: user.name
