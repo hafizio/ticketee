@@ -8,7 +8,7 @@ module AuthenticationHelpers
   end
 end
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.include AuthenticationHelpers, type: :feature
 end
 
@@ -18,7 +18,7 @@ module AuthHelpers
   end
 end
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.include AuthHelpers, type: :controller
 end
 
