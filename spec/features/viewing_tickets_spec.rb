@@ -1,45 +1,20 @@
 require 'spec_helper'
 
-feature "Viewing tickets" do
+feature "Viewing projects" do
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:project) { FactoryGirl.create(:project) }
+
   before do
-    user = FactoryGirl.create(:user)
-
-    textmate_2 = FactoryGirl.create(:project,
-                                    name: "TextMate 2")
-
-    define_permission!(user, "view", textmate_2)
-
-    ticket = FactoryGirl.create(:ticket,
-                project: textmate_2,
-                title: "Make it shiny!",
-                description: "Gradients! Starbursts! Oh my!")
-    ticket.update(user: user)
-
-    internet_explorer = FactoryGirl.create(:project,
-                                            name: "Internet Explorer")
-
-    define_permission!(user, "view", internet_explorer)
-
-    FactoryGirl.create(:ticket,
-            project: internet_explorer,
-            title: "Standards compliance",
-            description: "Isn't a joke.")
-
     sign_in_as!(user)
-    visit '/'
+    define_permission!(user, :view, project)
   end
 
-  scenario "Viewing tickets for a given project" do
-    click_link "TextMate 2"
+  scenario "Listing all projects" do
+    FactoryGirl.create(:project, name: "Hidden")
+    visit '/'
+    expect(page).to_not have_content("Hidden")
+    click_link project.name
 
-    expect(page).to have_content("Make it shiny!")
-    expect(page).to_not have_content("Standards compliance")
-
-    click_link "Make it shiny!"
-    within("#ticket h2") do
-      expect(page).to have_content("Make it shiny!")
-    end
-
-    expect(page).to have_content("Gradients! Starbursts! Oh my!")
+    expect(page.current_url).to eql(project_url(project))
   end
 end
