@@ -10,6 +10,7 @@ Ticketee::Application.routes.draw do
     resources :tickets
   end
   
+  resources :files
   resources :users
 
   namespace :admin do
