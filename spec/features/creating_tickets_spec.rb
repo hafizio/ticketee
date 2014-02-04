@@ -61,4 +61,4 @@ feature "Creating Tickets" do
       expect(page).to have_content("spin.txt")
     end
   end
-endrsp
+end
