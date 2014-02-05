@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204053215) do
+ActiveRecord::Schema.define(version: 20140204073311) do
 
   create_table "assets", force: true do |t|
     t.string   "asset"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140204053215) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "state_id"
   end
 
   create_table "permissions", force: true do |t|
@@ -45,6 +46,14 @@ ActiveRecord::Schema.define(version: 20140204053215) do
     t.datetime "updated_at"
   end
 
+  create_table "states", force: true do |t|
+    t.string   "name"
+    t.string   "color"
+    t.string   "background"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tickets", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -52,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140204053215) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "state_id"
   end
 
   add_index "tickets", ["project_id"], name: "index_tickets_on_project_id"
