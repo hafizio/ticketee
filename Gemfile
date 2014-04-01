@@ -52,6 +52,16 @@ gem 'carrierwave', '0.8.0'
 gem 'database_cleaner', '1.0.1'
 gem 'selenium-webdriver', '~> 2.39.0'
 
+group :development do
+  gem 'jazz_hands'
+end
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
+gem 'zeus'
 # Use unicorn as the app server
 # gem 'unicorn'
 

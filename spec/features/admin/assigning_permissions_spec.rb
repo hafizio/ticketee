@@ -13,6 +13,8 @@ feature "Assigning permissions" do
     click_link "Users"
     click_link user.email
     click_link "Permissions"
+
+    State.create!(name: "Open")
   end
 
   scenario "Viewing a project" do
