@@ -33,6 +33,7 @@ feature "Creating comments" do
 
   scenario "Changing a ticket's state" do
     define_permission!(user, "change states", project)
+
     click_link ticket.title
     fill_in "Text", with: "This is a real issue"
     select "Open", from: "State"
@@ -52,5 +53,5 @@ feature "Creating comments" do
     expect {
       find("#comment_state_id")
     }.to raise_error(Capybara::ElementNotFound, message)
-  end  
+  end
 end

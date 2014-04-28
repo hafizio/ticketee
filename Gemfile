@@ -34,6 +34,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails', "~> 2.14"
+  gem "railroady"
 end
 
 group :test do
@@ -53,12 +54,10 @@ gem 'database_cleaner', '1.0.1'
 gem 'selenium-webdriver', '~> 2.39.0'
 
 group :development do
-  gem 'jazz_hands'
-end
-
-group :development do
+  gem "jazz_hands"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "rails-erd"
 end
 
 gem 'zeus'
