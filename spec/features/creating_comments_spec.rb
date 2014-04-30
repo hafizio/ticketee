@@ -54,4 +54,18 @@ feature "Creating comments" do
       find("#comment_state_id")
     }.to raise_error(Capybara::ElementNotFound, message)
   end
+
+  scenario "Adding a tag to a ticket" do
+    click_link ticket.title
+    within("#ticket #tags") do
+      expect(page).to_not have_content("bugs")
+    end
+    fill_in "Text", with: "Adding the bugs tag"
+    fill_in "Tags", with: "bugs"
+    click_button "Create Comment"
+    expect(page).to have_content("Comment has been created.")
+    within("#ticket #tags") do
+      expect(page).to have_content("bugs")
+    end
+  end
 end
