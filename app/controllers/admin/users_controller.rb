@@ -5,9 +5,6 @@ class Admin::UsersController < Admin::BaseController
     @users = User.order(:email)
   end
 
-  def show
-  end
-
   def new
     @user = User.new
   end
@@ -21,9 +18,12 @@ class Admin::UsersController < Admin::BaseController
       flash[:notice] = "User has been created."
       redirect_to admin_users_path
     else
-      flash[:alert] = "User has not been created."
+      flash.now[:alert] = "User has not been created."
       render :action => "new"
     end
+  end
+
+  def show
   end
 
   def edit
@@ -40,18 +40,18 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path
     else
       flash[:alert] = "User has not been updated."
-      render action: "edit"
+      render "edit"
     end
   end
 
   def destroy
     if @user == current_user
       flash[:alert] = "You cannot delete yourself!"
-    else 
+    else
       @user.destroy
-      flash[:alert] = "User has been deleted."
+      flash[:notice] = "User has been deleted."
     end
-    
+
     redirect_to admin_users_path
   end
 
@@ -67,6 +67,5 @@ class Admin::UsersController < Admin::BaseController
                                    :password,
                                    :password_confirmation,
                                    :admin)
-
     end
 end

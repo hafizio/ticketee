@@ -7,6 +7,11 @@ Ticketee::Application.routes.draw do
 
   resources :tickets do
     resources :comments
+    resources :tags do
+      member do
+        delete :remove
+      end
+    end
   end
 
   resources :users
@@ -18,6 +23,7 @@ Ticketee::Application.routes.draw do
       put "permissions", to: "permissions#set",
                          as: "set_permissions"
     end
+
     resources :states do
       member do
         get :make_default

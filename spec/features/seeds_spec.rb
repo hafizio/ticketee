@@ -1,5 +1,6 @@
 require 'spec_helper'
-  feature "Seed Data" do
+
+feature "Seed Data" do
   scenario "The basics" do
     load Rails.root + "db/seeds.rb"
     user = User.where(email: "admin@example.com").first!
@@ -10,7 +11,7 @@ require 'spec_helper'
     click_link "Ticketee Beta"
     click_link "New Ticket"
     fill_in "Title", with: "Comments with state"
-    fill_in "Description", with: "Comments always have a state"
+    fill_in "Description", with: "Comments always have a state."
     click_button "Create Ticket"
 
     within("#comment_state_id") do
