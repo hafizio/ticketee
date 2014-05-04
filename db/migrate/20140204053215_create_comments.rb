@@ -2,8 +2,8 @@ class CreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
       t.text :text
-      t.integer :ticket_id
-      t.integer :user_id
+      t.references :ticket, index: true
+      t.references :user, index: true
 
       t.timestamps
     end

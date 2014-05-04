@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature "Editing tickets" do
-  let!(:user) { FactoryGirl.create(:user) }
   let!(:project) { FactoryGirl.create(:project) }
+  let!(:user) { FactoryGirl.create(:user) }
   let!(:ticket) do
     ticket = FactoryGirl.create(:ticket, project: project)
     ticket.update(user: user)
@@ -12,9 +12,7 @@ feature "Editing tickets" do
   before do
     define_permission!(user, "view", project)
     define_permission!(user, "edit tickets", project)
-
     sign_in_as!(user)
-    
     visit '/'
     click_link project.name
     click_link ticket.title
@@ -25,7 +23,7 @@ feature "Editing tickets" do
     fill_in "Title", with: "Make it really shiny!"
     click_button "Update Ticket"
 
-    expect(page).to have_content("Ticket has been updated")
+    expect(page).to have_content "Ticket has been updated."
 
     within("#ticket h2") do
       expect(page).to have_content("Make it really shiny!")
@@ -34,10 +32,10 @@ feature "Editing tickets" do
     expect(page).to_not have_content ticket.title
   end
 
-  scenario "Updating a ticket with invalid operation" do
+  scenario "Updating a ticket with invalid information" do
     fill_in "Title", with: ""
     click_button "Update Ticket"
 
-    expect(page).to have_content("Ticket has not been updated")
+    expect(page).to have_content("Ticket has not been updated.")
   end
 end

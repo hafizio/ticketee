@@ -4,13 +4,14 @@ describe TicketsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
   let(:ticket) { FactoryGirl.create(:ticket,
-                                     project: project,
-                                     user: user) }
+                                    project: project,
+                                    user: user) }
 
   context "standard users" do
     it "cannot access a ticket for a project" do
       sign_in(user)
       get :show, :id => ticket.id, :project_id => project.id
+
       expect(response).to redirect_to(root_path)
       expect(flash[:alert]).to eql("The project you were looking " +
                                    "for could not be found.")
@@ -33,7 +34,7 @@ describe TicketsController do
       expect(response).to redirect_to(project)
       expect(flash[:alert]).to eql("You cannot edit tickets " \
                                    "on this project.")
-    end 
+    end
 
     it "cannot begin to create a ticket" do
       get :new, project_id: project.id
@@ -64,6 +65,18 @@ describe TicketsController do
       expect(response).to redirect_to(project)
       message = "You cannot delete tickets from this project."
       expect(flash[:alert]).to eql(message)
+    end
+
+    it "can create tickets, but not tag them" do
+      Permission.create(user: user, 
+                        thing: project, 
+                        action: "create tickets")
+      post :create, ticket: { title: "New ticket!",
+                                 description: "Brand spankin' new",
+                                 tag_names: "these are tags"
+                               },
+                    project_id: project.id
+      expect(Ticket.last.tags).to be_empty
     end
   end
 end

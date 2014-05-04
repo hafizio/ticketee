@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
-  belongs_to :ticket
-  
   mount_uploader :asset, AssetUploader
+
+  belongs_to :ticket
 
   before_save :update_content_type
 

@@ -16,5 +16,5 @@ module CapybaraHelpers
 end
 
 RSpec.configure do |config|
-  config.include CapybaraHelpers, type: :feature
+  config.include CapybaraHelpers, :type => :feature
 end

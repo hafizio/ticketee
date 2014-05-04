@@ -6,6 +6,7 @@ feature "Creating Tickets" do
     user = FactoryGirl.create(:user)
     define_permission!(user, "view", project)
     define_permission!(user, "create tickets", project)
+    define_permission!(user, "tag", project)
     @email = user.email
     sign_in_as!(user)
 
@@ -45,7 +46,7 @@ feature "Creating Tickets" do
 
   scenario "Creating a ticket with an attachment", js: true do
     fill_in "Title", with: "Add documentation for blink tag"
-    fill_in "Description", with: "The blink tag has a speed attribute"
+    fill_in "Description", with: "Blink tag's speed attribute"
 
     attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
 
@@ -55,16 +56,16 @@ feature "Creating Tickets" do
     click_button "Create Ticket"
 
     expect(page).to have_content("Ticket has been created.")
-
+    
     within("#ticket .assets") do
       expect(page).to have_content("speed.txt")
       expect(page).to have_content("spin.txt")
     end
   end
 
-  scenario "Creating ticket with tags" do
+  scenario "Creating a ticket with tags" do
     fill_in "Title", with: "Non-standards compliance"
-    fill_in "Description", with: "My pages are ugly"
+    fill_in "Description", with: "My pages are ugly!"
     fill_in "Tags", with: "browser visual"
     click_button "Create Ticket"
 

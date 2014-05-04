@@ -5,6 +5,7 @@ describe User do
     u = User.new(name: "steve",
                  password: "hunter2",
                  password_confirmation: "hunter2")
+
     u.save
     expect(u).to_not be_valid
 
@@ -22,9 +23,11 @@ describe User do
 
       u.password = "password"
       u.password_confirmation = ""
+      u.save
       expect(u).to_not be_valid
 
       u.password_confirmation = "password"
+      u.save
       expect(u).to be_valid
     end
 
@@ -41,18 +44,17 @@ describe User do
 
   describe "authentication" do
     let(:user) { User.create(
-                  name: "steve",
-                  email: "steve@example.com",
-                  password: "hunter2",
-                  password_confirmation: "hunter2") } 
+      name: "steve",
+      email: "steve@example.com",
+      password: "hunter2",
+      password_confirmation: "hunter2") }
 
     it "authenticates with a correct password" do
       expect(user.authenticate("hunter2")).to be
     end
-      
-    it "does not authenticate with incorrect password" do
+
+    it "does not authenticate with an incorrect password" do
       expect(user.authenticate("hunter1")).to_not be
     end
-  end
-
+  end  
 end

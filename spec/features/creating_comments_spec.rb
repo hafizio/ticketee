@@ -7,6 +7,8 @@ feature "Creating comments" do
 
   before do
     define_permission!(user, "view", project)
+    define_permission!(user, "tag", project)
+
     FactoryGirl.create(:state, name: "Open")
 
     sign_in_as!(user)
@@ -58,14 +60,16 @@ feature "Creating comments" do
   scenario "Adding a tag to a ticket" do
     click_link ticket.title
     within("#ticket #tags") do
-      expect(page).to_not have_content("bugs")
+      expect(page).to_not have_content("bug")
     end
-    fill_in "Text", with: "Adding the bugs tag"
-    fill_in "Tags", with: "bugs"
+
+    fill_in "Text", with: "Adding the bug tag"
+    fill_in "Tags", with: "bug"
     click_button "Create Comment"
+
     expect(page).to have_content("Comment has been created.")
     within("#ticket #tags") do
-      expect(page).to have_content("bugs")
+      expect(page).to have_content("bug")
     end
   end
 end

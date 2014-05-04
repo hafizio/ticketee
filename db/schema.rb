@@ -31,9 +31,6 @@ ActiveRecord::Schema.define(version: 20140429193131) do
     t.integer  "previous_state_id"
   end
 
-  add_index "comments", ["ticket_id"], name: "index_comments_on_ticket_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
     t.integer  "thing_id"
