@@ -51,4 +51,14 @@ feature "Searching" do
       expect(page).to_not have_content("Create users")
     end
   end
+
+  scenario "Clicking a tag goes to the search results" do
+  	click_link "Create projects"
+  	click_link "iteration_1"
+
+  	within("#tickets") do
+  		expect(page).to have_content("Create projects")
+      expect(page).to_not have_content("Create users")
+    end
+  end
 end
